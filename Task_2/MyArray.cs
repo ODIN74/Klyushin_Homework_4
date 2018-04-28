@@ -6,44 +6,53 @@ namespace Task_2
 {
     class MyArray
     {
+        //Определение поля класса
         private int[] array;
-        enum Metod {ByRandom, ByStep};
 
-        public MyArray(int n)
+        //Определение нумерованного списка для конструктора массива
+        public enum Metod {ByRandom, ByStep};
+        
+        //Конструктор пустого массива
+        public MyArray(int size)
         {
-            array = new int[n];
+            array = new int[size];
         }
 
-        public MyArray(int n, int element)
+        //Конструктор массива заполненного определенным числом
+        public MyArray(int size, int element)
         {
-            array = new int[n];
+            array = new int[size];
             for(int i = 0; i < array.Length; i++)
             {
                 array[i] = element;
             }
         }
 
-        //public MyArray(int n, int min, int max)
-        //{
-
-        //    Random rnd = new Random();
-        //    array = new int[n];
-        //    for (int i = 0; i < array.Length; i++)
-        //    {
-        //        array[i] = rnd.Next(min, max);
-        //    }
-        //}
-
-        public MyArray(int n, int initial, int step)
+        //Конструктор массива с заданной длинной и возможностью выбора генерации значения через random или от начального значения с определенным шагом
+        public MyArray(int size, int initial, int finalOrStep, Metod metod)
         {
-            array = new int[n];
-            array[0] = initial;
-            for (int i = 1; i < array.Length; i++)
+            if (metod == Metod.ByRandom)
             {
-                array[i] += array[i - 1] + step;
+                Random rnd = new Random();
+                array = new int[size];
+                for (int i = 0; i < array.Length; i++)
+                {
+                    array[i] = rnd.Next(initial, finalOrStep);
+                }
+            }
+
+            else if(metod == Metod.ByStep)
+            { 
+                array = new int[size];
+                array[0] = initial;
+                for (int i = 1; i < array.Length; i++)
+                {
+                        array[i] = array[i - 1] + finalOrStep;
+                }     
             }
         }
 
+        //Конструктор массива считывающего значения из файла
         public MyArray(string path)
         {
             if (File.Exists(path))
@@ -62,6 +71,7 @@ namespace Task_2
             }
         }
 
+        //Свойство возвращающее максимальный элемент массива
         public int Max
         {
             get
@@ -75,6 +85,7 @@ namespace Task_2
             }
         }
 
+        //Свойство возвращающее минимальный элемент массива
         public int Min
         {
             get {
@@ -87,6 +98,7 @@ namespace Task_2
             }
         }
 
+        //Свойство возвращающее сумму элементов массива
         public int Sum
         {
             get {
@@ -99,6 +111,7 @@ namespace Task_2
             }
         }
 
+        //Свойство возвращающее колличество максимальных элементов в массиве
         public int MaxCount
         {
             get
@@ -112,11 +125,13 @@ namespace Task_2
             }
         }
 
+        //Свойство возвращающее длинну массива
         public int Length
         {
             get { return array.Length; }
         }
 
+        //Метод возвращающий инверсный массив
         public int[] Inverse()
         {
             int[] b = new int[array.Length];
@@ -128,6 +143,7 @@ namespace Task_2
             return b;
         }
 
+        //Метод возвращающий массив элементов массива умноженных на определенное число
         public int[] Multi(int multiplier)
         {
             int[] b = new int[array.Length];
@@ -139,6 +155,7 @@ namespace Task_2
             return b;
         }
 
+        //Метод чтения файла и записи его в массив (с изменением размерности массива если в файле больше/меньше элементов)
         public void ReadFromFile(string path)
         {
             if (File.Exists(path))
@@ -161,6 +178,8 @@ namespace Task_2
             }
         }
 
+        //Метод записи в файл с возможностью выбора перезаписывать файл или создавать новый 
+        //(в случае записи в новый файл проверяется также нет ли файла с сгенерированным именем)
         public void WriteToFile(string path, bool rewriteFile)
         {
 
@@ -193,6 +212,7 @@ namespace Task_2
             File.WriteAllLines(path, arrayToString);
         }
 
+        //Переопределенный метод преобразования массива в строку
         public override string ToString()
         {
             if (array != null)
