@@ -9,15 +9,17 @@ namespace Task_4
     class TwodimensionalArray
     {
         private int[,] array;
+        //private int lines = array.GetLength(0);
+        //private int columns = array.GetLength(1);
 
         public TwodimensionalArray(int lines, int columns)
         {
             int[,] array = new int[lines, columns];
         }
 
-        public TwodimensionalArray(int lines, int columns, int min, int max)
+        public TwodimensionalArray(int line, int column, int min, int max)
         {
-            int[,] array = new int[lines, columns];
+            int[,] array = new int[line, column];
             Random rnd = new Random();
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -28,21 +30,26 @@ namespace Task_4
             }
         }
 
-        public TwodimensionalArray this[int index0, int index1]
+        public int this[int index0, int index1]
         {
             get { return array[index0, index1]; }
+            set { array[index0, index1] = value; }
         }
 
-        public int LengthByLines 
+        public override string ToString()
         {
-            get { return array.GetLength(0); }
+            string line = String.Empty;
+
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    line += " " + array[i, j];
+                }
+                line += "\n";
+            }
+
+            return line;
         }
-
-        public int LengthByColumns
-        {
-            get { return array.GetLength(1); }
-        }
-
-
     }
 }
