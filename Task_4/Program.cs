@@ -8,7 +8,7 @@ namespace Task_4
         {
             TwodimensionalArray arr = new TwodimensionalArray(4, 5, -10, 20);
 
-            Console.WriteLine(arr.ToString());
+            Console.WriteLine(arr.Max);
             Console.ReadLine();
 
 
