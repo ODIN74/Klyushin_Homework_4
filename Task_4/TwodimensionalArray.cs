@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Task_4
 {
     class TwodimensionalArray
     {
-        private int[,] array;
-        //private int lines = array.GetLength(0);
-        //private int columns = array.GetLength(1);
+        private static int[,] array;
+        private int lines = array.GetLength(0);
+        private int columns = array.GetLength(1);
 
         public TwodimensionalArray(int lines, int columns)
         {
