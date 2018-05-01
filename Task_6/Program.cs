@@ -16,23 +16,28 @@ namespace Task_6
     {
         static void Main(string[] args)
         {
+
+            //проверка на наличие файла и отмена игры в случае его отсутствия
             if (File.Exists(@"D:\Anton\C Sharp\lesson5\questions.csv"))
             {
-                string[,] questions = ReadCsvToArray(';', @"D:\Anton\C Sharp\lesson5\questions.csv");
+                string[,] questions = ReadCsvToArray(';', @"D:\Anton\C Sharp\lesson4\questions.csv");
                 int sumOfQuestions = questions.GetLength(0);
                 int counterQuestions = 0;
                 int points = 0;
                 string answer = String.Empty;
                 Random Rnd = new Random();
 
+                //инициализируем массив для записи индексов заданных вопросов
                 int[] numbersOfQuestion = new int[4];
                 int newQuestion = 0;
 
                 Console.WriteLine("Добро пожаловать в игру \"Верю. Не вкерю\".\n\nВам будет задано 5 вопросов,\nа потом мы посмотрим сколько баллов Вы набрали.");
                 Console.ReadLine();
 
+                //организуем цикл для организации игрового процесса
                 while (counterQuestions < 5)
                 {
+                    //цикл для исключения повтора вопросов
                     do
                     {
                         newQuestion = Rnd.Next(1, sumOfQuestions);
@@ -43,19 +48,19 @@ namespace Task_6
                     Console.WriteLine(questions[newQuestion, 0]+"\n");
                     answer = Console.ReadLine();
                     
-                    if(answer.ToLower() == questions[newQuestion,1].ToLower())
+                    if(answer.ToLower() == questions[newQuestion,1].ToLower()) //верный ответ
                     {
                         Console.WriteLine("\n\nВы ответили верно!");
                         points++;
                         Console.ReadLine();
                     }
-                    else if(answer.ToLower() != "да" || answer.ToLower() != "нет")
+                    else if(answer.ToLower() != "да" && answer.ToLower() != "нет") //обработка если введено что-то отличное от "да" или "нет"
                     {
                         Console.Clear();
                         Console.WriteLine("Вы ввели что-то не то. Нужно вводить только Да или Нет.\nПостарайтесь не ошибиться в следующем вопросе.");
                         Console.ReadLine();
                     }
-                    else
+                    else //неверный ответ
                     {
                         Console.WriteLine("\n\nВы ответили не верно!");
                         Console.ReadLine();
@@ -77,10 +82,11 @@ namespace Task_6
             
         }
 
+        //метод чтения из файла в двумерный массив
         static string[,] ReadCsvToArray(char separator, string path)
         {
             //считываем строки файла
-            string[] lines = File.ReadAllLines(path);
+            string[] lines = File.ReadAllLines(path, Encoding.UTF8);
             //определяем колличество столбцов
             string[] columns = lines[0].Split(separator);
 
@@ -120,6 +126,7 @@ namespace Task_6
             }
         }
 
+        //метод проверки задавался ли уже такой вопрос
         static bool ChekQuestionRepeat(int[] numbersOfQuestions, int newQuestion)
         {
             bool flag = false;
