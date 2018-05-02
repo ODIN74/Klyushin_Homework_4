@@ -6,15 +6,17 @@ namespace Task_4
 {
     class TwodimensionalArray
     {
-        private static int[,] array;
+        static int[,] array;
         //private int lines = array.GetLength(0);
         //private int columns = array.GetLength(1);
 
+        //конструктор массива с заданными размерами
         public TwodimensionalArray(int lines, int columns)
         {
             int[,] array = new int[lines, columns];
         }
 
+        //конструктор массива заполненный случайными элементами из указанного интервала
         public TwodimensionalArray(int line, int column, int min, int max)
         {
             int[,] array = new int[line, column];
@@ -28,13 +30,14 @@ namespace Task_4
             }
         }
 
+        //индексирование
         public int this[int index0, int index1]
         {
             get { return array[index0, index1]; }
             set { array[index0, index1] = value; }
         }
 
-
+        //свойство, возвращающее минимальное значение массива
         public int Min
         {
             get
@@ -48,6 +51,7 @@ namespace Task_4
             }
         }
 
+        //свойство, возвращающее максимальное значение массива
         public int Max
         {
             get
@@ -61,12 +65,9 @@ namespace Task_4
             }
         }
 
-        public IEnumerator GetEnumerator()
-        {
-            return array.GetEnumerator();
-        }
 
-        public int SumElements(TwodimensionalArray array)
+        //метод возвращающий сумму элементов массива
+        public int SumElements()
         {
                 int sumAllElements = 0;
                 foreach(var element in array)
@@ -77,7 +78,8 @@ namespace Task_4
 
         }
 
-        public int SumElements(TwodimensionalArray array ,int initial)
+        //метод возвращающий сумму элементов массива больше заданного
+        public int SumElements(int initial)
         {
             int SumElements = 0;
             foreach(var element in array)
@@ -87,7 +89,7 @@ namespace Task_4
             return SumElements;
         }
 
-
+        //метод преобразования в строку
         public override string ToString()
         {
             string line = String.Empty;
