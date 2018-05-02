@@ -6,7 +6,7 @@ namespace Task_4
 {
     class TwodimensionalArray
     {
-        static int[,] array;
+        int[,] array;
         //private int lines = array.GetLength(0);
         //private int columns = array.GetLength(1);
 
@@ -42,8 +42,8 @@ namespace Task_4
         {
             get
             {
-                int min = array[0, 0];
-                foreach(var element in array)
+                int min = this.array[0, 0];
+                foreach(var element in this.array)
                 {
                     if (element < min) min = element;
                 }
@@ -57,7 +57,7 @@ namespace Task_4
             get
             {
                 int max = array[0, 0];
-                foreach (var element in array)
+                foreach (var element in this.array)
                 {
                     if (element > max) max = element;
                 }
@@ -70,7 +70,7 @@ namespace Task_4
         public int SumElements()
         {
                 int sumAllElements = 0;
-                foreach(var element in array)
+                foreach(var element in this.array)
                 {
                     sumAllElements += element;
                 }
@@ -82,7 +82,7 @@ namespace Task_4
         public int SumElements(int initial)
         {
             int SumElements = 0;
-            foreach(var element in array)
+            foreach(var element in this.array)
             {
                 if (element > initial) SumElements += element;
             }
@@ -94,11 +94,11 @@ namespace Task_4
         {
             string line = String.Empty;
 
-            for (int i = 0; i < array.GetLength(0); i++)
+            for (int i = 0; i < this.array.GetLength(0); i++)
             {
-                for (int j = 0; j < array.GetLength(1); j++)
+                for (int j = 0; j < this.array.GetLength(1); j++)
                 {
-                    line += " " + array[i, j];
+                    line += " " + this.array[i, j];
                 }
                 line += "\n";
             }
