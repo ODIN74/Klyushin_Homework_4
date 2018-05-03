@@ -1,23 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
+
 
 namespace Task_4
 {
     class TwodimensionalArray
     {
-        private int[,] array;
+        int[,] array;
+        //private int lines = array.GetLength(0);
+        //private int columns = array.GetLength(1);
 
+        //конструктор массива с заданными размерами
         public TwodimensionalArray(int lines, int columns)
         {
             int[,] array = new int[lines, columns];
         }
 
-        public TwodimensionalArray(int lines, int columns, int min, int max)
+        //конструктор массива заполненный случайными элементами из указанного интервала
+        public TwodimensionalArray(int line, int column, int min, int max)
         {
-            int[,] array = new int[lines, columns];
+            int[,] array = new int[line, column];
             Random rnd = new Random();
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -28,21 +30,80 @@ namespace Task_4
             }
         }
 
-        public TwodimensionalArray this[int index0, int index1]
+        //индексирование
+        public int this[int index0, int index1]
         {
             get { return array[index0, index1]; }
+            set { array[index0, index1] = value; }
         }
 
-        public int LengthByLines 
+        //свойство, возвращающее минимальное значение массива
+        public int Min
         {
-            get { return array.GetLength(0); }
+            get
+            {
+                int min = this.array[0, 0];
+                foreach(var element in this.array)
+                {
+                    if (element < min) min = element;
+                }
+                return min;
+            }
         }
 
-        public int LengthByColumns
+        //свойство, возвращающее максимальное значение массива
+        public int Max
         {
-            get { return array.GetLength(1); }
+            get
+            {
+                int max = array[0, 0];
+                foreach (var element in this.array)
+                {
+                    if (element > max) max = element;
+                }
+                return max;
+            }
         }
 
 
+        //метод возвращающий сумму элементов массива
+        public int SumElements()
+        {
+                int sumAllElements = 0;
+                foreach(var element in this.array)
+                {
+                    sumAllElements += element;
+                }
+                return sumAllElements;
+
+        }
+
+        //метод возвращающий сумму элементов массива больше заданного
+        public int SumElements(int initial)
+        {
+            int SumElements = 0;
+            foreach(var element in this.array)
+            {
+                if (element > initial) SumElements += element;
+            }
+            return SumElements;
+        }
+
+        //метод преобразования в строку
+        public override string ToString()
+        {
+            string line = String.Empty;
+
+            for (int i = 0; i < this.array.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.array.GetLength(1); j++)
+                {
+                    line += " " + this.array[i, j];
+                }
+                line += "\n";
+            }
+
+            return line;
+        }
     }
 }
